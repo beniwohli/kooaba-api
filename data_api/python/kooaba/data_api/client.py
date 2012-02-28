@@ -112,7 +112,7 @@ class BasicDataUploadClient:
         (_response, body) = self._post_data("/items/%s/images.xml" % item_id, self._serialize_xml(xml), 'application/xml')
         return self._id_from_xml_string(body)
 
-    def create_item(self, group_id, title, extras = dict()):
+    def create_item(self, group_id, title, extras=None):
         """ Create a new item with title in the group with group_id.
         Optional metadata entries (external_id, reference_id, locale) are
         specified as dictionary in extras (any entries with value None are
@@ -123,6 +123,8 @@ class BasicDataUploadClient:
         """
         xml = ET.Element("item")
         self._add_xml_subelement(xml, "title", title)
+        if extras is None:
+            extras = {}
         for (key, value) in extras.items():
             if value is not None:
                 self._add_xml_subelement(xml, key, value)
@@ -181,13 +183,15 @@ class BasicDataUploadClient:
         """ Enable/disable debugging printouts according to the flag. """
         self.debugging = flag
 
-    def update_item(self, item_id, extras = dict()):
+    def update_item(self, item_id, extras = None):
         """ Update the item according to metadata in extras.
         The metadata entries (title, external_id, reference_id, locale) are
         specified as dictionary (any entries with value None are ignored).
         Raises exception:
             - RuntimeError: API call failed with an error.
         """
+        if extras is None:
+            extras = {}
         xml = ET.Element("item")
         for (key, value) in extras.items():
             if value is not None:
