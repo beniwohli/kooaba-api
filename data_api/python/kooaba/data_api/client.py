@@ -46,7 +46,7 @@ QUERY_ENDPOINT = 'http://my.kooaba.com'
 RESULTS_LIMIT  = 1
 
 
-class BasicDataUploadClient:
+class BasicDataUploadClient(object):
     """ Client for kooaba Data Upload API. """
 
     def __init__(self, access_key, secret_key, endpoint = None):
@@ -78,12 +78,14 @@ class BasicDataUploadClient:
         self._add_xml_subelement(file_elem, "upload_id", upload_id)
         (_response, _body) = self._post_data("/items/%s/item_resources.xml" % item_id, self._serialize_xml(xml), 'application/xml')
 
-    def add_resource_uri(self, item_id, title, section, uri):
+    def add_resource_uri(self, item_id, title, section, uri, locale=None):
         """ Add a URI resource to an item.
         Raises exception on error.
         """
         xml = self._generate_basic_resource_xml(title, section)
         self._add_xml_subelement(xml, "uri", uri)
+        if locale:
+            self._add_xml_subelement(xml, "locale", locale)
         (_response, _body) = self._post_data("/items/%s/item_resources.xml" % item_id, self._serialize_xml(xml), 'application/xml')
 
     def change_item_medium_type(self, item_id, medium_type, title, metadata):
