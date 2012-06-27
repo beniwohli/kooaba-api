@@ -10,7 +10,7 @@ def read(*rnames):
 
 setup(
     name='kooaba.data_api',
-    version='1.0',
+    version='0.2.1',
     author="Peter Čech",
     description="Python API for kooaba",
     long_description=read('README.md'),
@@ -26,7 +26,7 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     url='https://github.com/kooaba/kooaba-api',
-    packages=('kooaba.data_api',),
+    packages=('kooaba', 'kooaba.data_api',),
     install_requires=['distribute'],
     include_package_data=True,
     namespace_packages=['kooaba'],
