@@ -62,31 +62,9 @@ except ImportError:
 
 # Python 2 vs 3
 if sys.hexversion > 0x03000000:
-    EOL = b"\n"
-
-    def to_hashable(data):
-        """ Convert data to a hashable type. """
-        if isinstance(data, bytes):
-            return data
-        else:
-            return str(data).encode()
-
-    def ascii_to_hashable(data):
-        """ Convert ASCII text data to a hashable type. """
-        if isinstance(data, bytes):
-            return data
-        else:
-            return str(data).encode('ascii')
+    from kooaba.data_api.python_3 import *
 else:
-    EOL = "\n"
-
-    def to_hashable(data):
-        """ Convert data to a hashable type. """
-        return str(data)
-
-    def ascii_to_hashable(data):
-        """ Convert ASCII text data to a hashable type. """
-        return str(data)
+    from kooaba.data_api.python_2 import *
 
 
 __all__ = ['KWSSigner']
