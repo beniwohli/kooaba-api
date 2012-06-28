@@ -10,7 +10,7 @@ def read(*rnames):
 
 setup(
     name='kooaba.data_api',
-    version='0.2.1',
+    version='0.2.2',
     author="Peter Čech",
     description="Python API for kooaba",
     long_description=read('README.md'),
